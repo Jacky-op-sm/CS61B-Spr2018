@@ -1,5 +1,3 @@
-import java.math.*;
-
 /**
  *  Tests calcForceExertedBy
  */
@@ -21,25 +19,30 @@ public class TestCalcForceExertedBy {
      *  @param  eps         Tolerance for the double comparison.
      */
     private static void checkEquals(double actual, double expected, String label, double eps) {
-        if (Math.abs(expected - actual) <= eps * Math.max(expected, actual)) {
-            System.out.println("PASS: " + label + ": Expected " + expected + " and you gave " + actual);
+        if (Double.isNaN(actual) || Double.isInfinite(actual)) {
+            System.out.println("FAIL: " + label
+                    + ": Expected " + expected + " and you gave " + actual);
+        } else if (Math.abs(expected - actual) <= eps * Math.max(expected, actual)) {
+            System.out.println("PASS: " + label
+                    + ": Expected " + expected + " and you gave " + actual);
         } else {
-            System.out.println("FAIL: " + label + ": Expected " + expected + " and you gave " + actual);
+            System.out.println("FAIL: " + label
+                    + ": Expected " + expected + " and you gave " + actual);
         }
     }
 
 
     /**
-     *  Checks the Planet class to make sure calcForceExertedBy works.
+     *  Checks the Body class to make sure calcForceExertedBy works.
      */
     private static void checkCalcForceExertedBy() {
         System.out.println("Checking calcForceExertedBy...");
 
-        Planet p1 = new Planet(1.0, 1.0, 3.0, 4.0, 5.0, "jupiter.gif");
-        Planet p2 = new Planet(2.0, 1.0, 3.0, 4.0, 4e11, "jupiter.gif");
-        Planet p3 = new Planet(4.0, 5.0, 3.0, 4.0, 5.0, "jupiter.gif");
+        Body b1 = new Body(1.0, 1.0, 3.0, 4.0, 5.0, "jupiter.gif");
+        Body b2 = new Body(2.0, 1.0, 3.0, 4.0, 4e11, "jupiter.gif");
+        Body b3 = new Body(4.0, 5.0, 3.0, 4.0, 5.0, "jupiter.gif");
 
-        checkEquals(p1.calcForceExertedBy(p2), 133.4, "calcForceExertedBy()", 0.01);
-        checkEquals(p1.calcForceExertedBy(p3), 6.67e-11, "calcForceExertedBy()", 0.01);
+        checkEquals(b1.calcForceExertedBy(b2), 133.4, "calcForceExertedBy()", 0.01);
+        checkEquals(b1.calcForceExertedBy(b3), 6.67e-11, "calcForceExertedBy()", 0.01);
     }
 }
