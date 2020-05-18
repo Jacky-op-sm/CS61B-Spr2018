@@ -82,20 +82,21 @@ public class ArrayDequeTest {
     public static void test2() {
         ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
         lld1.addFirst(0);
+        lld1.addFirst(1);
         lld1.get(0);
-        lld1.removeLast();
+        System.out.println(lld1.removeLast());
         lld1.addFirst(3);
         lld1.addLast(4);
-        lld1.removeFirst();
+        System.out.println(lld1.removeFirst());
         lld1.addFirst(6);
         lld1.get(1);
         lld1.addFirst(8);
-        lld1.removeLast();
-        lld1.removeFirst();
+        System.out.println(lld1.removeLast());
+        System.out.println(lld1.removeFirst());
         lld1.addLast(11);
         lld1.get(1);
         lld1.get(0);
-        lld1.removeFirst();
+        System.out.println(lld1.removeFirst());
         lld1.addFirst(15);
         lld1.addFirst(16);
         lld1.addFirst(17);

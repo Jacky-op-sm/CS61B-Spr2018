@@ -73,7 +73,7 @@ public class ArrayDeque<T> {
             biggerResize(size * 2);
         }
         items[nextLast] = x;
-        nextLast = nextLast + 1;
+        nextLast = plusOne(nextLast);
         size = size + 1;
     }
 
