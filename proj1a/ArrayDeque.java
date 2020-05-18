@@ -34,10 +34,9 @@ public class ArrayDeque<T> {
     private void smallerResize(int n) {
         T[] a = (T []) new Object[n];
         T[] copy = items;
-        int last = minusOne(nextLast);
         int first = nextFirst + 1;
         System.arraycopy(items, 0, a, 0, nextLast);
-        System.arraycopy(copy, first, a, first - items.length/2, items.length - first);
+        System.arraycopy(copy, first, a, first - items.length / 2, items.length - first);
         items = a;
         nextFirst = minusOne(first - items.length);
     }
@@ -88,37 +87,39 @@ public class ArrayDeque<T> {
 
     public T removeLast() {
         if (isEmpty()) {return null;
-        } else {
-        T item = getlast();
-        nextLast = minusOne(nextLast);
-        size = size - 1;
-        if (size == 0) {
-            nextFirst = 7;
-            nextLast = 0;
         }
-        usageRatio = (double) size / (double) items.length;
-        if (items.length >= 16 && usageRatio < 0.25) {
-            smallerResize(items.length / 2);
-        }
-        return item;
+        else {
+            T item = getlast();
+            nextLast = minusOne(nextLast);
+            size = size - 1;
+            if (size == 0) {
+                nextFirst = 7;
+                nextLast = 0;
+            }
+            usageRatio = (double) size / (double) items.length;
+            if (items.length >= 16 && usageRatio < 0.25) {
+                smallerResize(items.length / 2);
+            }
+            return item;
         }
     }
 
     public T removeFirst() {
         if (isEmpty()) {return null;
-        } else {
-        T item = getfirst();
-        nextFirst = plusOne(nextFirst);
-        size = size - 1;
-        if (size == 0) {
-            nextFirst = 7;
-            nextLast = 0;
         }
-        usageRatio = (double)size / (double)items.length;
-        if (items.length >= 16 && usageRatio < 0.25) {
-            smallerResize(items.length / 2);
-        }
-        return item;
+        else {
+            T item = getfirst();
+            nextFirst = plusOne(nextFirst);
+            size = size - 1;
+            if (size == 0) {
+                nextFirst = 7;
+                nextLast = 0;
+            }
+            usageRatio = (double)size / (double)items.length;
+            if (items.length >= 16 && usageRatio < 0.25) {
+                smallerResize(items.length / 2);
+            }
+            return item;
         }
     }
 
@@ -145,4 +146,5 @@ public class ArrayDeque<T> {
             System.out.print(" ");
         }
     }
+
 }
