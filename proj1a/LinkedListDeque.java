@@ -113,6 +113,4 @@ public class LinkedListDeque<T> {
             p = p.next;
         }
     }
-    System.out.println();
-
 }

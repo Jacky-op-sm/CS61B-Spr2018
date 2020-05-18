@@ -148,6 +148,4 @@ public class ArrayDeque<T> {
             System.out.print(" ");
         }
     }
-    System.out.println()
-    
 }
