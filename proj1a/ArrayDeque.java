@@ -35,11 +35,20 @@ public class ArrayDeque<T> {
         T[] a = (T []) new Object[n];
         T[] copy = items;
         int first = nextFirst + 1;
-        System.arraycopy(items, 0, a, 0, nextLast);
-        System.arraycopy(copy, first, a, first - items.length / 2, items.length - first);
-        items = a;
-        nextFirst = minusOne(first - items.length);
-    }
+        if (nextFirst > nextLast) {
+            System.arraycopy(items, 0, a, 0, nextLast);
+            System.arraycopy(copy, first, a, first - items.length / 2, items.length - first);
+            items = a;
+            nextFirst = minusOne(first - items.length);
+        } else {
+            System.arraycopy(items, nextFirst, a, 0, nextLast - nextFirst + 1);
+            items = a;
+            nextLast = nextLast - nextFirst;
+            nextFirst = 0;
+        }
+        }
+
+
 
     private T getlast() {
         return items[minusOne(nextLast)];
@@ -88,8 +97,7 @@ public class ArrayDeque<T> {
     public T removeLast() {
         if (isEmpty()) {
             return null;
-        }
-        else {
+        } else {
             T item = getlast();
             nextLast = minusOne(nextLast);
             size = size - 1;
@@ -108,8 +116,7 @@ public class ArrayDeque<T> {
     public T removeFirst() {
         if (isEmpty()) {
         	return null;
-        }
-        else {
+        } else {
             T item = getfirst();
             nextFirst = plusOne(nextFirst);
             size = size - 1;
