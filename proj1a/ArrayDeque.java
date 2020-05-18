@@ -46,7 +46,7 @@ public class ArrayDeque<T> {
             nextLast = nextLast - nextFirst;
             nextFirst = 0;
         }
-        }
+    }
 
 
 
