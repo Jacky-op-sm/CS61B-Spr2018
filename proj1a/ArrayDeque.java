@@ -35,9 +35,9 @@ public class ArrayDeque<T> {
         T[] a = (T []) new Object[n];
         T[] copy = items;
         int last = minusOne(nextLast);
-        int first = plusOne(nextFirst);
+        int first = nextFirst + 1;
         System.arraycopy(items, 0, a, 0, nextLast);
-        System.arraycopy(copy, first, a, first - items.length/2, items.length - nextFirst - 1);
+        System.arraycopy(copy, first, a, first - items.length/2, items.length - first);
         items = a;
         nextFirst = minusOne(first - items.length);
     }

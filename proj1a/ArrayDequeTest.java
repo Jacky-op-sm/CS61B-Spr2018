@@ -81,27 +81,27 @@ public class ArrayDequeTest {
 
     public static void test2() {
         ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
-        lld1.addFirst(0);
-        lld1.addFirst(1);
-        lld1.get(0);
-        System.out.println(lld1.removeLast());
-        lld1.addFirst(3);
-        lld1.addLast(4);
-        System.out.println(lld1.removeFirst());
-        lld1.addFirst(6);
+        lld1.addLast(0);
+        lld1.addLast(1);
+        lld1.addLast(2);
+        lld1.removeLast();
         lld1.get(1);
-        lld1.addFirst(8);
-        System.out.println(lld1.removeLast());
-        System.out.println(lld1.removeFirst());
-        lld1.addLast(11);
+        lld1.addFirst(5);
+        lld1.addLast(6);
+        lld1.addLast(7);
+        lld1.addLast(8);
+        lld1.addFirst(9);
         lld1.get(1);
         lld1.get(0);
-        System.out.println(lld1.removeFirst());
-        lld1.addFirst(15);
-        lld1.addFirst(16);
-        lld1.addFirst(17);
-        lld1.addFirst(18);
-        lld1.addLast(19);
+        lld1.addFirst(12);
+        lld1.addLast(13);
+        lld1.removeLast();
+        lld1.removeFirst();
+        lld1.get(4);
+        lld1.removeFirst();
+        lld1.removeLast();
+        lld1.removeLast();
+        lld1.removeFirst();
     }
     public static void ResizeTest() {
         ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
