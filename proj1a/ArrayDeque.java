@@ -1,56 +1,56 @@
-public class ArrayDeque<BleepBlorp> {
+public class ArrayDeque<T> {
 
     /** invariants:
      * The index of the nextFirst is always first - 1.
-     * The index of the nextLast is always Last + 1.
+     * The index of the nextLast is always last + 1.
      * The number of items in the ArrayDeque is always size.
      */
 
-    BleepBlorp[] items;
-    int size;
-    double usageRatio;
-    int nextFirst;
-    int nextLast;
-    int First;
-    int Last;
+    private T[] items;
+    private int size;
+    private double usageRatio;
+    private int nextFirst;
+    private int nextLast;
+    private int first;
+    private int last;
 
     public ArrayDeque() {
-        items = (BleepBlorp []) new Object[8];
+        items = (T []) new Object[8];
         size = 0;
         nextFirst = 7;
         nextLast = 0;
     }
 
-    public void BiggerResize(int n) {
-        BleepBlorp[] a = (BleepBlorp []) new Object[n];
-        BleepBlorp[] copy = items;
-        System.arraycopy(items, 0, a, 0, PlusOne(Last));
-        System.arraycopy(copy, First, a, First + size, size - First);
+    public void biggerResize(int n) {
+        T[] a = (T []) new Object[n];
+        T[] copy = items;
+        System.arraycopy(items, 0, a, 0, plusOne(last));
+        System.arraycopy(copy, first, a, first + size, size - first);
         items = a;
-        nextFirst = MinusOne(First + size);
-        Last = MinusOne(nextLast);
+        nextFirst = minusOne(first + size);
+        last = minusOne(nextLast);
     }
 
-    public void SmallerResize(int n) {
-        BleepBlorp[] a = (BleepBlorp []) new Object[n];
-        BleepBlorp[] copy = items;
+    public void smallerResize(int n) {
+        T[] a = (T []) new Object[n];
+        T[] copy = items;
         System.arraycopy(items, 0, a, 0, nextLast);
-        System.arraycopy(copy, First, a, First - items.length/2, items.length - nextFirst - 1);
+        System.arraycopy(copy, first, a, first - items.length/2, items.length - nextFirst - 1);
         items = a;
-        nextFirst = MinusOne(First - items.length);
-        First = PlusOne(nextFirst);
-        Last = MinusOne(nextLast);
+        nextFirst = minusOne(first - items.length);
+        first = plusOne(nextFirst);
+        last = minusOne(nextLast);
     }
 
-    public BleepBlorp getLast() {
-        return items[Last];
+    public T getlast() {
+        return items[last];
     }
 
-    public BleepBlorp getFirst() {
-        return items[First];
+    public T getfirst() {
+        return items[first];
     }
 
-    public int MinusOne(int index) {
+    public int minusOne(int index) {
         int j = index - 1;
         if (j == -1) {
             return items.length + j;
@@ -59,7 +59,7 @@ public class ArrayDeque<BleepBlorp> {
         }
     }
 
-    public int PlusOne(int index) {
+    public int plusOne(int index) {
         int i = index + 1;
         if (i == items.length) {
             return 0;
@@ -68,58 +68,64 @@ public class ArrayDeque<BleepBlorp> {
         }
     }
 
-    public void addLast(BleepBlorp x) {
+    public void addLast(T x) {
         if (size == items.length) {
-            BiggerResize(size * 2);
+            biggerResize(size * 2);
         }
         items[nextLast] = x;
-        Last = nextLast;
+        last = nextLast;
         nextLast = nextLast + 1;
         size = size + 1;
         if (size == 1) {
-            First = Last;
+            first = last;
         }
     }
 
-    public void addFirst(BleepBlorp x) {
+    public void addFirst(T x) {
         if (size == items.length) {
-            BiggerResize(size * 2);
+            biggerResize(size * 2);
         }
         items[nextFirst] = x;
-        First = nextFirst;
-        nextFirst = MinusOne(nextFirst);
+        first = nextFirst;
+        nextFirst = minusOne(nextFirst);
         size = size + 1;
         if (size == 1) {
-            Last = First;
+            last = first;
         }
     }
 
-    public BleepBlorp removeLast() {
-        BleepBlorp item = getLast();
-        nextLast = MinusOne(nextLast);
-        Last = MinusOne(Last);
+    public T removeLast() {
+        if (isEmpty()) {return null;
+        } else {
+        T item = getlast();
+        nextLast = minusOne(nextLast);
+        last = minusOne(last);
+        size = size - 1;
+        usageRatio = (double) size / (double) items.length;
+        if (items.length >= 16 && usageRatio < 0.25) {
+            smallerResize(items.length / 2);
+        }
+        return item;
+        }
+    }
+
+    public T removeFirst() {
+        if (isEmpty()) {return null;
+        } else {
+        T item = getfirst();
+        first = plusOne(first);
+        nextFirst = plusOne(nextFirst);
         size = size - 1;
         usageRatio = (double)size / (double)items.length;
         if (items.length >= 16 && usageRatio < 0.25) {
-            SmallerResize(items.length / 2);
+            smallerResize(items.length / 2);
         }
         return item;
-    }
-
-    public BleepBlorp removeFirst() {
-        BleepBlorp item = getFirst();
-        First = PlusOne(First);
-        nextFirst = PlusOne(nextFirst);
-        size = size - 1;
-        usageRatio = (double)size / (double)items.length;
-        if (items.length >= 16 && usageRatio < 0.25) {
-            SmallerResize(items.length / 2);
         }
-        return item;
     }
 
-    public BleepBlorp get(int i) {
-        int index = First + i;
+    public T get(int i) {
+        int index = first + i;
         if (index >= items.length) {
             index = index - items.length;
         }
@@ -136,7 +142,7 @@ public class ArrayDeque<BleepBlorp> {
 
     public void printDeque() {
         for (int i = 0; i < size; i = i + 1) {
-            BleepBlorp item = get(i);
+            T item = get(i);
             System.out.print(item);
             System.out.print(" ");
         }
