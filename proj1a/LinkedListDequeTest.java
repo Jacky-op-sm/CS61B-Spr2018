@@ -66,9 +66,9 @@ public class LinkedListDequeTest {
 		lld1.addLast("a");
 		lld1.addLast("b");
 		lld1.addLast("c");
-		System.out.println(lld1.get(0));
-		System.out.println(lld1.get(1));
-		System.out.println(lld1.get(2));
+		System.out.println(lld1.getRecursive(0));
+		System.out.println(lld1.getRecursive(1));
+		System.out.println(lld1.getRecursive(2));
 		lld1.removeLast();
 		lld1.removeLast();
 		lld1.removeLast();
@@ -106,4 +106,5 @@ public class LinkedListDequeTest {
 		addRemoveTest2();
 		addRemoveTest();
 	}
+
 } 

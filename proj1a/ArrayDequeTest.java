@@ -103,7 +103,7 @@ public class ArrayDequeTest {
         lld1.removeLast();
         lld1.removeFirst();
     }
-    public static void ResizeTest() {
+    public static void resizeTest() {
         ArrayDeque<Integer> lld1 = new ArrayDeque<Integer>();
         lld1.addFirst(1);
         lld1.addFirst(2);
@@ -170,7 +170,8 @@ public class ArrayDequeTest {
         addIsEmptySizeTest();
         addRemoveTest();
         addRemoveTest2();
-        ResizeTest();
+        resizeTest();
         test2();
     }
+
 } 

@@ -86,7 +86,8 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
-        if (isEmpty()) {return null;
+        if (isEmpty()) {
+            return null;
         }
         else {
             T item = getlast();
@@ -105,7 +106,8 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        if (isEmpty()) {return null;
+        if (isEmpty()) {
+        	return null;
         }
         else {
             T item = getfirst();
@@ -115,7 +117,7 @@ public class ArrayDeque<T> {
                 nextFirst = 7;
                 nextLast = 0;
             }
-            usageRatio = (double)size / (double)items.length;
+            usageRatio = (double) size / (double) items.length;
             if (items.length >= 16 && usageRatio < 0.25) {
                 smallerResize(items.length / 2);
             }
@@ -146,5 +148,6 @@ public class ArrayDeque<T> {
             System.out.print(" ");
         }
     }
-
+    System.out.println()
+    
 }

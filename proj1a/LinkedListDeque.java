@@ -52,8 +52,7 @@ public class LinkedListDeque<T> {
     public T removeFirst() {
         if (isEmpty()) {
             return null;
-        }
-        else {
+        } else {
             T item = sentinel.next.item;
             sentinel.next = sentinel.next.next;
             if (sentinel.next == sentinel) {
@@ -68,8 +67,7 @@ public class LinkedListDeque<T> {
     public T removeLast() {
         if (isEmpty()) {
             return null;
-        }
-        else {
+        } else {
             T item = last.item;
             last = last.prev;
             last.next = sentinel;
@@ -115,5 +113,6 @@ public class LinkedListDeque<T> {
             p = p.next;
         }
     }
-
+    System.out.println()
+    
 }
