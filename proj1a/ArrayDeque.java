@@ -11,8 +11,6 @@ public class ArrayDeque<T> {
     private double usageRatio;
     private int nextFirst;
     private int nextLast;
-    private int first;
-    private int last;
 
     public ArrayDeque() {
         items = (T []) new Object[8];
@@ -21,9 +19,11 @@ public class ArrayDeque<T> {
         nextLast = 0;
     }
 
-    public void biggerResize(int n) {
+    private void biggerResize(int n) {
         T[] a = (T []) new Object[n];
         T[] copy = items;
+        int last = minusOne(nextLast);
+        int first = plusOne(nextFirst);
         System.arraycopy(items, 0, a, 0, plusOne(last));
         System.arraycopy(copy, first, a, first + size, size - first);
         items = a;
@@ -31,26 +31,26 @@ public class ArrayDeque<T> {
         last = minusOne(nextLast);
     }
 
-    public void smallerResize(int n) {
+    private void smallerResize(int n) {
         T[] a = (T []) new Object[n];
         T[] copy = items;
+        int last = minusOne(nextLast);
+        int first = plusOne(nextFirst);
         System.arraycopy(items, 0, a, 0, nextLast);
         System.arraycopy(copy, first, a, first - items.length/2, items.length - nextFirst - 1);
         items = a;
         nextFirst = minusOne(first - items.length);
-        first = plusOne(nextFirst);
-        last = minusOne(nextLast);
     }
 
-    public T getlast() {
-        return items[last];
+    private T getlast() {
+        return items[minusOne(nextLast)];
     }
 
-    public T getfirst() {
-        return items[first];
+    private T getfirst() {
+        return items[plusOne(nextFirst)];
     }
 
-    public int minusOne(int index) {
+    private int minusOne(int index) {
         int j = index - 1;
         if (j == -1) {
             return items.length + j;
@@ -59,7 +59,7 @@ public class ArrayDeque<T> {
         }
     }
 
-    public int plusOne(int index) {
+    private int plusOne(int index) {
         int i = index + 1;
         if (i == items.length) {
             return 0;
@@ -73,12 +73,8 @@ public class ArrayDeque<T> {
             biggerResize(size * 2);
         }
         items[nextLast] = x;
-        last = nextLast;
         nextLast = nextLast + 1;
         size = size + 1;
-        if (size == 1) {
-            first = last;
-        }
     }
 
     public void addFirst(T x) {
@@ -86,12 +82,8 @@ public class ArrayDeque<T> {
             biggerResize(size * 2);
         }
         items[nextFirst] = x;
-        first = nextFirst;
         nextFirst = minusOne(nextFirst);
         size = size + 1;
-        if (size == 1) {
-            last = first;
-        }
     }
 
     public T removeLast() {
@@ -99,8 +91,11 @@ public class ArrayDeque<T> {
         } else {
         T item = getlast();
         nextLast = minusOne(nextLast);
-        last = minusOne(last);
         size = size - 1;
+        if (size == 0) {
+            nextFirst = 7;
+            nextLast = 0;
+        }
         usageRatio = (double) size / (double) items.length;
         if (items.length >= 16 && usageRatio < 0.25) {
             smallerResize(items.length / 2);
@@ -113,9 +108,12 @@ public class ArrayDeque<T> {
         if (isEmpty()) {return null;
         } else {
         T item = getfirst();
-        first = plusOne(first);
         nextFirst = plusOne(nextFirst);
         size = size - 1;
+        if (size == 0) {
+            nextFirst = 7;
+            nextLast = 0;
+        }
         usageRatio = (double)size / (double)items.length;
         if (items.length >= 16 && usageRatio < 0.25) {
             smallerResize(items.length / 2);
@@ -125,7 +123,7 @@ public class ArrayDeque<T> {
     }
 
     public T get(int i) {
-        int index = first + i;
+        int index = plusOne(nextFirst) + i;
         if (index >= items.length) {
             index = index - items.length;
         }
