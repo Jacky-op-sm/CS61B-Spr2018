@@ -115,7 +115,7 @@ public class ArrayDeque<T> {
 
     public T removeFirst() {
         if (isEmpty()) {
-        	return null;
+            return null;
         } else {
             T item = getfirst();
             nextFirst = plusOne(nextFirst);
