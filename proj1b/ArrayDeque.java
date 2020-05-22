@@ -1,4 +1,4 @@
-public class ArrayDeque <T> implements Deque<T> {
+public class ArrayDeque<T> implements Deque<T> {
 
     /** invariants:
      * The index of the nextFirst is always first - 1.
