@@ -8,7 +8,7 @@ public class World {
     static int HEIGHT = Game.HEIGHT;
     private static int houseNumber = 0;
     private int n;
-    private House[] houses = new House[25];
+    private House[] houses = new House[100];
 
     World(int n) {
         this.n = n;
