@@ -12,7 +12,7 @@ public class World {
     static Random RANDOM = new Random(SEED);
     private static int houseNumber = 0;
     private static int n = RANDOM.nextInt(10) + 10;
-    private static House[] houses = new House[n];
+    private static House[] houses = new House[n + 10];
 
 
     static TETile[][] inital(int w, int h) {
