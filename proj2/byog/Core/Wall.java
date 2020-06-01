@@ -4,6 +4,7 @@ import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
 public class Wall {
+    static int k;
     static TETile floor = Tileset.FLOOR;
     static TETile wall = Tileset.WALL;
 
@@ -12,6 +13,7 @@ public class Wall {
         for (int i = p.xPosition - 1; i <= p.xPosition + 1; i += 1) {
             for (int j = p.yPosition - 1; j <= p.yPosition + 1; j += 1) {
                 if (world[i][j] == floor) {
+                    k = 1;
                 } else {
                     world[i][j] = wall;
                 }

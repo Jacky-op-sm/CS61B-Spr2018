@@ -8,8 +8,8 @@ import java.util.Random;
 
 // draw a rectangle house with size of m * n at position p.
 class House {
-    private static final long SEED = Game.SEED;
-    private static final Random RANDOM = new Random(SEED);
+    static long SEED = Game.SEED;
+    static Random RANDOM = new Random(SEED);
 
     Position p;
     int m;
@@ -17,19 +17,21 @@ class House {
 
     //build a random house at a random position at random size.
     House() {
-        Position p = new Position(RANDOM.nextInt(World.WIDTH - 6), RANDOM.nextInt(World.HEIGHT - 6));
-        int m = RANDOM.nextInt(6) + 3;
-        int n = RANDOM.nextInt(6) + 3;
-        if (p.xPosition + m >= World.WIDTH) {
-            m = World.WIDTH - p.xPosition - 1;
+        Position p1 = new Position(RANDOM.nextInt(World.WIDTH - 6),
+                RANDOM.nextInt(World.HEIGHT - 6));
+        int m1 = RANDOM.nextInt(6) + 3;
+        int n1 = RANDOM.nextInt(6) + 3;
+        if (p1.xPosition + m1 >= World.WIDTH) {
+            m1 = World.WIDTH - p1.xPosition - 1;
         }
-        if (p.yPosition + n >= World.HEIGHT) {
-            n = World.HEIGHT - p.yPosition - 1;
+        if (p1.yPosition + n1 >= World.HEIGHT) {
+            n1 = World.HEIGHT - p1.yPosition - 1;
         }
-        this.p = p;
-        this.m = m;
-        this.n = n;
+        this.p = p1;
+        this.m = m1;
+        this.n = n1;
     }
+
 
     void draw(TETile[][] tiles) {
         TETile floor = Tileset.FLOOR;
