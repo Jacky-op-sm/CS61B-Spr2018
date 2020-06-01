@@ -3,16 +3,17 @@ package byog.Core;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
+import java.util.Random;
+
 public class World {
     static int WIDTH = Game.WIDTH;
     static int HEIGHT = Game.HEIGHT;
+    static long SEED = Game.SEED;
+    static Random RANDOM = new Random(SEED);
     private static int houseNumber = 0;
-    private int n;
-    private House[] houses = new House[100];
+    private static int n = RANDOM.nextInt(10) + 10;
+    private static House[] houses = new House[n];
 
-    World(int n) {
-        this.n = n;
-    }
 
     static TETile[][] inital(int w, int h) {
         TETile[][] world = new TETile[w][h];
@@ -28,7 +29,7 @@ public class World {
         h1.connect(h2, world);
     }
 
-    public void drawHouse(TETile[][] world) {
+    public static void drawHouse(TETile[][] world) {
         House h = new House();
         h.draw(world);
         houses[houseNumber] = h;
@@ -36,7 +37,7 @@ public class World {
     }
 
     // draw houses of number n.
-    public TETile[][] drawHouseLoop(TETile[][] world) {
+    public static TETile[][] drawHouseLoop(TETile[][] world) {
         for (int i = 0; i < n; i += 1) {
             drawHouse(world);
         }

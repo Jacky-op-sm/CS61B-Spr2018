@@ -40,9 +40,8 @@ public class Game {
         String num = input.substring(1, input.length() - 1);
         SEED = Long.parseLong(num);
         RANDOM = new Random(SEED);
-        World world = new World(RANDOM.nextInt(10) + 10);
         TETile[][] initialWorld = World.inital(WIDTH, HEIGHT);
-        TETile[][] finalWorldFrame = world.drawHouseLoop(initialWorld);
+        TETile[][] finalWorldFrame = World.drawHouseLoop(initialWorld);
         return finalWorldFrame;
     }
 }
