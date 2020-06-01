@@ -10,7 +10,7 @@ public class World {
     static int HEIGHT = Game.HEIGHT;
     static long SEED = Game.SEED;
     static Random RANDOM = new Random(SEED);
-    private static int houseNumber = 0;
+    private int houseNumber = 0;
     private static int n = RANDOM.nextInt(10) + 10;
     private static House[] houses = new House[n + 10];
 
@@ -25,11 +25,11 @@ public class World {
         return world;
     }
 
-    public static void connectHouse(House h1, House h2, TETile[][] world) {
+    public void connectHouse(House h1, House h2, TETile[][] world) {
         h1.connect(h2, world);
     }
 
-    public static void drawHouse(TETile[][] world) {
+    public void drawHouse(TETile[][] world) {
         House h = new House();
         h.draw(world);
         houses[houseNumber] = h;
@@ -37,7 +37,7 @@ public class World {
     }
 
     // draw houses of number n.
-    public static TETile[][] drawHouseLoop(TETile[][] world) {
+    public TETile[][] drawHouseLoop(TETile[][] world) {
         for (int i = 0; i < n; i += 1) {
             drawHouse(world);
         }

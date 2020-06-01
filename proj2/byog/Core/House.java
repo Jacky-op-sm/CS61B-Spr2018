@@ -17,8 +17,8 @@ class House {
 
     //build a random house at a random position at random size.
     House() {
-        Position p1 = new Position(RANDOM.nextInt(World.WIDTH - 6),
-                RANDOM.nextInt(World.HEIGHT - 6));
+        Position p1 = new Position(RANDOM.nextInt(World.WIDTH - 8),
+                RANDOM.nextInt(World.HEIGHT - 8));
         int m1 = RANDOM.nextInt(6) + 3;
         int n1 = RANDOM.nextInt(6) + 3;
         if (p1.xPosition + m1 >= World.WIDTH) {
