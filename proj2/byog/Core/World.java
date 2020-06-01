@@ -8,12 +8,19 @@ import java.util.Random;
 public class World {
     static int WIDTH = Game.WIDTH;
     static int HEIGHT = Game.HEIGHT;
-    static long SEED = Game.SEED;
-    static Random RANDOM = new Random(SEED);
+    long SEED;
+    Random RANDOM;
     private int houseNumber = 0;
-    private static int n = RANDOM.nextInt(10) + 10;
-    private static House[] houses = new House[n + 10];
+    private int n;
+    private House[] houses;
+    private House houseGroup = new House(SEED);
 
+    World(long seed) {
+        this.SEED = seed;
+        RANDOM = new Random(seed);
+        n = RANDOM.nextInt(10) + 10;
+        houses = new House[n + 10];
+    }
 
     static TETile[][] inital(int w, int h) {
         TETile[][] world = new TETile[w][h];
@@ -55,6 +62,4 @@ public class World {
      drawHouseLoop(world);
      ter.renderFrame(world);
      }*/
-
-
 }

@@ -8,12 +8,17 @@ import java.util.Random;
 
 // draw a rectangle house with size of m * n at position p.
 class House {
-    static long SEED = Game.SEED;
-    static Random RANDOM = new Random(SEED);
+    static long SEED;
+    static Random RANDOM;
 
     Position p;
     int m;
     int n;
+
+    House(long seed) {
+        this.SEED = seed;
+        RANDOM = new Random(seed);
+    }
 
     //build a random house at a random position at random size.
     House() {
@@ -31,6 +36,7 @@ class House {
         this.m = m1;
         this.n = n1;
     }
+
 
 
     void draw(TETile[][] tiles) {
