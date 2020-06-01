@@ -3,11 +3,15 @@ package byog.Core;
 import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 
+import java.util.Random;
+
 public class Game {
     TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
     public static final int HEIGHT = 30;
+    static long SEED = 0;
+    private static Random RANDOM = new Random(SEED);
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
@@ -28,11 +32,15 @@ public class Game {
      * @return the 2D TETile[][] representing the state of the world
      */
     public TETile[][] playWithInputString(String input) {
-        // TODO: Fill out this method to run the game using the input passed in,
+        // Todo: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
 
-        TETile[][] finalWorldFrame = null;
+        String num = input.substring(1, input.length() - 1);
+        SEED = Long.parseLong(num);
+        RANDOM = new Random(SEED);
+        TETile[][] initialWorld = World.inital(WIDTH, HEIGHT);
+        TETile[][] finalWorldFrame = World.drawHouseLoop(initialWorld);
         return finalWorldFrame;
     }
 }
