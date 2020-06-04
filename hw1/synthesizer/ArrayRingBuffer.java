@@ -1,9 +1,8 @@
-// TODO: Make sure to make this class a part of the synthesizer package
+// Todo: Make sure to make this class a part of the synthesizer package
 package synthesizer;
-import synthesizer.AbstractBoundedQueue;
 import java.util.Iterator;
 
-//TODO: Make sure to make this class and all of its methods public
+//Todo: Make sure to make this class and all of its methods public
 public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     /* Index for the next dequeue or peek. */
     private int first;            // index for the next dequeue or peek
@@ -16,7 +15,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      * Create a new ArrayRingBuffer with the given capacity.
      */
     public ArrayRingBuffer(int capacity) {
-        // TODO: Create new array with capacity elements.
+        // Todo: Create new array with capacity elements.
         //       first, last, and fillCount should all be set to 0.
         //       this.capacity should be set appropriately. Note that the local variable
         //       here shadows the field we inherit from AbstractBoundedQueue, so
@@ -44,7 +43,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         if (isFull()) {
             throw new RuntimeException("Ring Buffer Overflow");
         }
-        // TODO: Enqueue the item. Don't forget to increase fillCount and update last.
+        // Todo: Enqueue the item. Don't forget to increase fillCount and update last.
         rb[last] = x;
         fillCount += 1;
         last += 1;
@@ -60,7 +59,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         if (isEmpty()) {
             throw new RuntimeException("Ring Buffer Underflow");
         }
-        // TODO: Dequeue the first item. Don't forget to decrease fillCount and update
+        // Todo: Dequeue the first item. Don't forget to decrease fillCount and update
         T item = rb[first];
         first += 1;
         fillCount -= 1;
@@ -72,7 +71,10 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      * Return oldest item, but don't remove it.
      */
     public T peek() {
-        // TODO: Return the first item. None of your instance variables should change.
+        if (isEmpty()) {
+            throw new RuntimeException("No Peek!");
+        }
+        // Todo: Return the first item. None of your instance variables should change.
         return rb[first];
     }
 
@@ -83,7 +85,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     private class ArrayRingBufferIterator implements Iterator<T> {
         int start;
 
-        public ArrayRingBufferIterator() {
+        ArrayRingBufferIterator() {
             start = first;
         }
 
@@ -97,5 +99,5 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
             return returnItem;
         }
     }
-    // TODO: When you get to part 5, implement the needed code to support iteration.
+    // Todo: When you get to part 5, implement the needed code to support iteration.
 }
