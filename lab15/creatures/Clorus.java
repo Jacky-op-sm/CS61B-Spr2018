@@ -9,9 +9,10 @@ import java.util.Map;
 /**
  * An implementation of a motile pacifist photosynthesizer.
  *
- * @author Josh Hug
+ * @author Jacky
  */
-public class Plip extends Creature {
+
+public class Clorus extends Creature {
 
     double repEnergyRetained = 0.5;
     /**
@@ -31,8 +32,8 @@ public class Plip extends Creature {
     /**
      * creates plip with energy equal to E.
      */
-    public Plip(double e) {
-        super("plip");
+    public Clorus(double e) {
+        super("clorus");
         r = 0;
         g = 0;
         b = 0;
@@ -42,7 +43,7 @@ public class Plip extends Creature {
     /**
      * creates a plip with energy equal to 1.
      */
-    public Plip() {
+    public Clorus() {
         this(1);
     }
 
@@ -55,9 +56,9 @@ public class Plip extends Creature {
      * that you get this exactly correct.
      */
     public Color color() {
-        r = 99;
-        g = (int) (96 * energy + 63);
-        b = 76;
+        r = 34;
+        g = 0;
+        b = 231;
         return color(r, g, b);
     }
 
@@ -65,6 +66,7 @@ public class Plip extends Creature {
      * Do nothing with C, Plips are pacifists.
      */
     public void attack(Creature c) {
+        energy += c.energy();
     }
 
     /**
@@ -73,7 +75,7 @@ public class Plip extends Creature {
      * private static final variable. This is not required for this lab.
      */
     public void move() {
-        energy -= 0.15;
+        energy -= 0.03;
     }
 
 
@@ -81,8 +83,7 @@ public class Plip extends Creature {
      * Plips gain 0.2 energy when staying due to photosynthesis.
      */
     public void stay() {
-        energy += 0.2;
-        energy = Math.min(energy, 2);
+        energy -= 0.01;
     }
 
     /**
@@ -90,12 +91,12 @@ public class Plip extends Creature {
      * lost to the process. Now that's efficiency! Returns a baby
      * Plip.
      */
-    public Plip replicate() {
+    public Clorus replicate() {
         /** fraction of energy to retain when replicating. */
         energy = energy * repEnergyRetained;
         /** fraction of energy to bestow upon offspring. */
         double babyEnergy = energy;
-        return new Plip(babyEnergy);
+        return new Clorus(babyEnergy);
     }
 
     /**
@@ -111,18 +112,19 @@ public class Plip extends Creature {
      */
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
         List<Direction> empties = getNeighborsOfType(neighbors, "empty");
-        List<Direction> cloruses = getNeighborsOfType(neighbors, "clorus");
+        List<Direction> plips = getNeighborsOfType(neighbors, "plip");
         if (empties.size() >= 1) {
             Direction dir = HugLifeUtils.randomEntry(empties);
-            if (energy > 1.0) {
+            if (plips.size() >= 1) {
+                Direction attackDir = HugLifeUtils.randomEntry(plips);
+                return new Action(Action.ActionType.ATTACK, attackDir);
+            } else if (energy >= 1) {
                 return new Action(Action.ActionType.REPLICATE, dir);
-            } else if (cloruses.size() >= 1) {
-                if (HugLifeUtils.random() < moveProbability) {
-                    return new Action(Action.ActionType.MOVE, dir);
-                }
+            } else {
+                return new Action(Action.ActionType.MOVE, dir);
             }
         }
         return new Action(Action.ActionType.STAY);
     }
-
 }
+
