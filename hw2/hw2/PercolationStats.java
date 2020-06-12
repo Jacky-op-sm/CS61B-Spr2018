@@ -5,7 +5,7 @@ import edu.princeton.cs.introcs.StdStats;
 
 public class PercolationStats {
 
-    double[] stats;
+    private double[] stats;
 
     // perform T independent experiments on an N-by-N grid
     public PercolationStats(int N, int T, PercolationFactory pf) {
@@ -21,6 +21,15 @@ public class PercolationStats {
             double openRatio = (double) exp.numberOfOpenSites() / (N * N);
             stats[i] = openRatio;
         }
+
+    }
+
+    // use for unit testing (not required)
+    public static void main(String[] args) {
+        PercolationFactory pf = new PercolationFactory();
+        PercolationStats test = new PercolationStats(20, 100000, pf);
+        System.out.println(test.mean());
+        System.out.println(test.stddev());
 
     }
 

@@ -21,12 +21,6 @@ public class Percolation {
         for (int i = 1; i <= length - 2; i += 1) {
             grid[i] = false;
         }
-        for (int i = 1; i <= N; i += 1) {
-            wqu.union(0, i);
-        }
-        for (int i = N * N - N + 1; i <= N * N; i += 1) {
-            wqu.union(N * N + 1, i);
-        }
     }
 
     // use for unit testing (not required)
@@ -57,8 +51,12 @@ public class Percolation {
             grid[num] = true;
             size += 1;
             if (row == 0) {
+                wqu.union(num, 0);
                 connectDown(row, col);
             } else if (row == n - 1) {
+                if (!percolates()) {
+                    wqu.union(num, n * n + 1);
+                }
                 connectUp(row, col);
             } else {
                 connectDown(row, col);
