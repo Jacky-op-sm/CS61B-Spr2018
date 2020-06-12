@@ -24,19 +24,11 @@ public class Percolation {
     }
 
     // use for unit testing (not required)
-    public static void main(String[] args) {
-        Percolation test = new Percolation(5);
-        test.open(3, 4);
-        test.open(2, 4);
-        test.open(2, 2);
-        test.open(2, 3);
-        test.open(0, 2);
-        test.open(1, 2);
-        test.open(4, 4);
-        System.out.println(test.isFull(4, 4));
+    private static void main(String[] args) {
+        Percolation test = new Percolation(1);
+        test.open(0, 0);
         System.out.println(test.percolates());
         System.out.println(test.numberOfOpenSites());
-        System.out.println((double) 7);
     }
 
     private int xyTo1D(int row, int col) {
@@ -50,25 +42,30 @@ public class Percolation {
         if (!grid[num]) {
             grid[num] = true;
             size += 1;
-            if (row == 0) {
+            if (n == 1) {
                 wqu.union(num, 0);
-                connectDown(row, col);
-            } else if (row == n - 1) {
-                if (!percolates()) {
-                    wqu.union(num, n * n + 1);
+                wqu.union(num, 2);
+            } else {
+                if (row == 0) {
+                    wqu.union(num, 0);
+                    connectDown(row, col);
+                } else if (row == n - 1) {
+                    if (!percolates()) {
+                        wqu.union(num, n * n + 1);
+                    }
+                    connectUp(row, col);
+                } else {
+                    connectDown(row, col);
+                    connectUp(row, col);
                 }
-                connectUp(row, col);
-            } else {
-                connectDown(row, col);
-                connectUp(row, col);
-            }
-            if (col == 0) {
-                connectRight(row, col);
-            } else if (col == n - 1) {
-                connectLeft(row, col);
-            } else {
-                connectRight(row, col);
-                connectLeft(row, col);
+                if (col == 0) {
+                    connectRight(row, col);
+                } else if (col == n - 1) {
+                    connectLeft(row, col);
+                } else {
+                    connectRight(row, col);
+                    connectLeft(row, col);
+                }
             }
         }
     }
