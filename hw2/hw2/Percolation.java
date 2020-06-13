@@ -4,6 +4,7 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
     private WeightedQuickUnionUF wqu;
+    private WeightedQuickUnionUF wquFull;
     private boolean[] grid;
     private int n;
     private int size;
@@ -15,6 +16,7 @@ public class Percolation {
         size = 0;
         int length = N * N + 2;
         wqu = new WeightedQuickUnionUF(length);
+        wquFull = new WeightedQuickUnionUF(length);
         grid = new boolean[length];
         grid[0] = true;
         grid[length - 1] = true;
@@ -24,7 +26,7 @@ public class Percolation {
     }
 
     // use for unit testing (not required)
-    private static void main(String[] args) {
+    public static void main(String[] args) {
         Percolation test = new Percolation(1);
         test.open(0, 0);
         System.out.println(test.percolates());
@@ -44,15 +46,16 @@ public class Percolation {
             size += 1;
             if (n == 1) {
                 wqu.union(num, 0);
+                wquFull.union(num, 0);
                 wqu.union(num, 2);
+                wquFull.union(num, 2);
             } else {
                 if (row == 0) {
                     wqu.union(num, 0);
+                    wquFull.union(num, 0);
                     connectDown(row, col);
                 } else if (row == n - 1) {
-                    if (!percolates()) {
-                        wqu.union(num, n * n + 1);
-                    }
+                    wqu.union(num, n * n + 1);
                     connectUp(row, col);
                 } else {
                     connectDown(row, col);
@@ -75,6 +78,7 @@ public class Percolation {
             int i = xyTo1D(row, col);
             int k = xyTo1D(row + 1, col);
             wqu.union(i, k);
+            wquFull.union(i, k);
         }
     }
 
@@ -83,6 +87,7 @@ public class Percolation {
             int i = xyTo1D(row, col);
             int k = xyTo1D(row, col - 1);
             wqu.union(i, k);
+            wquFull.union(i, k);
         }
     }
 
@@ -91,6 +96,7 @@ public class Percolation {
             int i = xyTo1D(row, col);
             int k = xyTo1D(row - 1, col);
             wqu.union(i, k);
+            wquFull.union(i, k);
         }
     }
 
@@ -99,6 +105,7 @@ public class Percolation {
             int i = xyTo1D(row, col);
             int k = xyTo1D(row, col + 1);
             wqu.union(i, k);
+            wquFull.union(i, k);
         }
     }
 
@@ -128,7 +135,7 @@ public class Percolation {
         validate(row, col);
         int num = xyTo1D(row, col);
         if (isOpen(row, col)) {
-            return wqu.connected(num, 0);
+            return wquFull.connected(num, 0);
         }
         return false;
     }
