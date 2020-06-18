@@ -125,12 +125,16 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
+
         int left = leftIndex(index);
         int right = rightIndex(index);
-        int smallerOne = min(left, right);
-        if (smallerOne == min(index, smallerOne)) {
-            swap(smallerOne, index);
-            sink(smallerOne);
+        if (left > size) {}
+        else {
+            int smallerOne = min(left, right);
+            if (smallerOne == min(index, smallerOne)) {
+                swap(smallerOne, index);
+                sink(smallerOne);
+            }
         }
     }
 
